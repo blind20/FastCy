@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_gray">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        app:contentInsetStart="0dp"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/bluegreen">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:text="返回"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"/>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="选择颜色"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"/>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"/>
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center">
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/sp_csys1"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:background="@color/gray"
+            android:entries="@array/csys"/>
+    </android.support.v7.widget.LinearLayoutCompat>
+
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center">
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/sp_csys2"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:background="@color/gray"
+            android:entries="@array/csys"/>
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center">
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/sp_csys3"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:background="@color/gray"
+            android:entries="@array/csys"/>
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center">
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/saveCsys"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="@color/light_blue"
+            android:gravity="center"
+            android:text="保存"
+            android:textColor="@android:color/white"/>
+    </android.support.v7.widget.LinearLayoutCompat>
+
+
+</LinearLayout>

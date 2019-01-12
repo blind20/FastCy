@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">机动车查验终端</string>
+    <string name="hint_print_user">输入用户名</string>
+    <string name="hint_print_pwd">输入密码</string>
+    <string name="sign_in">登录</string>
+    <string name="lsh">流水号</string>
+    <string name="please_scan_lsh">请扫描或者输入流水号</string>
+    <string name="please_print_hphm">请输入号牌号码</string>
+    <string name="please_print_clsbdh">请输入车辆识别代号后4位</string>
+    <string name="query">查询</string>
+</resources>

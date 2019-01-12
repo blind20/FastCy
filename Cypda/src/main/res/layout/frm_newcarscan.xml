@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_gray"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bluegreen"
+        android:minHeight="?attr/actionBarSize">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="扫描流水号"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/white"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:id="@+id/tv_border"
+            android:layout_width="5dp"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/blue" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_title_hphm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/tv_border"
+            android:text="@string/lsh"
+            android:textSize="14sp" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/et_lsh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_border"
+            android:layout_alignLeft="@id/tv_border"
+            android:background="@null"
+            android:hint="@string/please_scan_lsh"
+            android:padding="20dp"
+            android:textSize="16sp" />
+
+        <com.joanzapata.iconify.widget.IconTextView
+            android:id="@+id/icon_scan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title_hphm"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:text="{icon-scan}"
+            android:textColor="@color/bluegreen"
+            android:textSize="30sp" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_gravity="right"
+        android:textColor="@color/gray"
+        android:text="是否校车"
+        />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_query"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/comm_btn"
+        android:text="@string/query"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+
+
+</android.support.v7.widget.LinearLayoutCompat>

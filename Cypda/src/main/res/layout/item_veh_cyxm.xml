@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_marginBottom="5dp"
+    android:background="@android:color/white">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_cyxm_seq"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:text="1"
+        android:textSize="16sp"
+        android:textColor="@android:color/holo_orange_dark"
+        android:gravity="center" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_cyxm_text"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@id/tv_cyxm_seq"
+        android:gravity="center"
+        android:text="校车标志灯和校车停车指示标志牌" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/iv_cyxm_checkflag"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:gravity="center"
+        android:src="@mipmap/checkflg_pass"/>
+
+</RelativeLayout>

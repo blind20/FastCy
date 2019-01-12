@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_gray"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bluegreen"
+        android:minHeight="?attr/actionBarSize">
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="在用车业务"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText" />
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/white"
+        android:paddingTop="10dp">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_border"
+            android:layout_width="5dp"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/blue" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_title_hphm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/tv_border"
+            android:text="号牌号码"
+            android:textSize="14sp" />
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:id="@+id/ll_hphm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:layout_below="@id/tv_border"
+            android:layout_alignLeft="@id/tv_border">
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/sp_province"
+                android:layout_width="90dp"
+                android:layout_height="match_parent"
+                android:entries="@array/province"
+                android:spinnerMode="dialog"
+                />
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_hphm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@null"
+                android:hint="@string/please_print_hphm"
+                android:padding="10dp"
+                android:maxLength="12"
+                android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                android:textSize="16sp" />
+        </android.support.v7.widget.LinearLayoutCompat>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_border2"
+            android:layout_width="5dp"
+            android:layout_height="20dp"
+            android:layout_below="@id/ll_hphm"
+            android:layout_alignLeft="@id/ll_hphm"
+            android:background="@color/blue" />
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_title_hpzl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@id/ll_hphm"
+            android:layout_toRightOf="@id/tv_border2"
+            android:text="号牌种类"
+            android:textSize="14sp" />
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/sp_hpzl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:entries="@array/hpzl"
+            android:spinnerMode="dialog"
+            android:paddingLeft="150dp"
+            android:layout_below="@id/tv_title_hpzl"
+            android:layout_alignLeft="@id/tv_border2"
+            />
+    </RelativeLayout>
+
+    <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_gravity="right"
+        android:textColor="@color/gray"
+        android:text="是否校车"
+        />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_query"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/comm_btn"
+        android:text="@string/query"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+
+
+</android.support.v7.widget.LinearLayoutCompat>
