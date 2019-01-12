@@ -42,6 +42,7 @@ public class TakePhotoGridAdapter extends MultipleRecyclerAdapter {
                 }else {
                     Glide.with(mContext).load(R.mipmap.ic_photo_add).into(imageView);
 //                    imageView.setBackgroundResource(R.drawable.item_addphoto_bg);
+
                 }
                 break;
             default:
