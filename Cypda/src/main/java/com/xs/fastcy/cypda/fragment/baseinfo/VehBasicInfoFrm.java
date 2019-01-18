@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -32,6 +33,7 @@ import com.xs.fastcy.cypda.util.DeviceUtil;
 import com.xs.fastcy.cypda.util.ToolUtil;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -198,36 +200,49 @@ public class VehBasicInfoFrm extends LatteDelegate   {
     }
 
     private VehCheckInfo getVehCheck(boolean isNewCar) {
+        VehCheckInfo vehCheckInfo;
         if(mVehCheckInfo!=null){
-            return mVehCheckInfo;
-        }
-        VehCheckInfo vehCheckInfo = new VehCheckInfo();
-        final JSONObject jo = JSON.parseObject(mJSON);
-        if(jo!=null&& !jo.isEmpty()){
-            if(isNewCar) {
-                vehCheckInfo.setLsh(jo.getString("lsh"));
+            vehCheckInfo = mVehCheckInfo;
+        }else {
+            vehCheckInfo = new VehCheckInfo();
+            final JSONObject jo = JSON.parseObject(mJSON);
+            if(jo!=null&& !jo.isEmpty()){
+                if(isNewCar) {
+                    vehCheckInfo.setLsh(jo.getString("lsh"));
+                }else {
+                    vehCheckInfo.setLsh(DeviceUtil.createInUseCarLsh(getContext()));
+                }
             }else {
                 vehCheckInfo.setLsh(DeviceUtil.createInUseCarLsh(getContext()));
             }
-        }else {
-            vehCheckInfo.setLsh(DeviceUtil.createInUseCarLsh(getContext()));
+            vehCheckInfo.setCycs(1);
+            if (mIsSchoolCar) {
+                vehCheckInfo.setVeh_sfxc("Y");
+            } else {
+                vehCheckInfo.setVeh_sfxc("N");
+            }
+            vehCheckInfo.setBh(mGgbh);
+            vehCheckInfo.setSfxny(mSfxny);
+            vehCheckInfo.setXnyzl(mXnyzl);
         }
-        vehCheckInfo.setCycs(1);
-        if (mIsSchoolCar) {
-            vehCheckInfo.setVeh_sfxc("Y");
-        } else {
-            vehCheckInfo.setVeh_sfxc("N");
-        }
-        vehCheckInfo.setBh(mGgbh);
-        vehCheckInfo.setSfxny(mSfxny);
-        vehCheckInfo.setXnyzl(mXnyzl);
+
         Map<String,String> items = new HashMap<>();
         List<MultipleItemEntity> list  = mAdapter.getData();
         for (MultipleItemEntity entity: list) {
             String item_left_field = entity.getField(VehBasicItemFields.ITEM_LEFT_FIELD);
             String itemValueCode = entity.getField(VehBasicItemFields.ITEM_RIGHT_VALUE_CODE);
-            if(!item_left_field.equals("xczl")){
+            if(!item_left_field.equals("xczl") && !item_left_field.equals("qpzk_hpzk")){
                 items.put(item_left_field,itemValueCode);
+            }else if(item_left_field.equals("qpzk_hpzk")){
+                if(!TextUtils.isEmpty(itemValueCode)){
+                    String[] zks = itemValueCode.split("\\+");
+                    if(zks[0]!=null){
+                        items.put("qpzk",zks[0]);
+                    }
+                    if(zks[1]!=null){
+                        items.put("hpzk",zks[1]);
+                    }
+                }
             }
         }
         BeanRefUtil.setFieldValue(vehCheckInfo,items);
@@ -236,6 +251,7 @@ public class VehBasicInfoFrm extends LatteDelegate   {
         if(ToolUtil.isEmpty(hphm)){
             vehCheckInfo.setHphm(null);
         }
+        vehCheckInfo.setCreatetime(new Date());
         return vehCheckInfo;
     }
 

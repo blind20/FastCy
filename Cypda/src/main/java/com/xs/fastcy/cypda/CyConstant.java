@@ -6,7 +6,7 @@ package com.xs.fastcy.cypda;
 //4.图片质量
 public class CyConstant {
     //测试
-    public static final String SETTING_PDA_HOST = "192.168.43.166";
+    public static final String SETTING_PDA_HOST = "192.168.10.52";
     public static final String SETTING_PDA_BASEURL  = "http://"+ SETTING_PDA_HOST.trim() +":8088/cms/";
     public static final String SETTING_PDA_PROVINCE = "赣";
     public static final String SETTING_PDA_CITY  = "F";

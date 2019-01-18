@@ -69,8 +69,10 @@ public class VehCheckInfoDao extends AbstractDao<VehCheckInfo, Long> {
         public final static Property Jy23 = new Property(42, String.class, "jy23", false, "JY23");
         public final static Property Jy24 = new Property(43, String.class, "jy24", false, "JY24");
         public final static Property Jy25 = new Property(44, String.class, "jy25", false, "JY25");
-        public final static Property Createtime = new Property(45, java.util.Date.class, "createtime", false, "CREATETIME");
-        public final static Property Updatetime = new Property(46, java.util.Date.class, "updatetime", false, "UPDATETIME");
+        public final static Property Qpzk = new Property(45, String.class, "qpzk", false, "QPZK");
+        public final static Property Hpzk = new Property(46, String.class, "hpzk", false, "HPZK");
+        public final static Property Createtime = new Property(47, java.util.Date.class, "createtime", false, "CREATETIME");
+        public final static Property Updatetime = new Property(48, java.util.Date.class, "updatetime", false, "UPDATETIME");
     }
 
 
@@ -131,8 +133,10 @@ public class VehCheckInfoDao extends AbstractDao<VehCheckInfo, Long> {
                 "\"JY23\" TEXT," + // 42: jy23
                 "\"JY24\" TEXT," + // 43: jy24
                 "\"JY25\" TEXT," + // 44: jy25
-                "\"CREATETIME\" INTEGER," + // 45: createtime
-                "\"UPDATETIME\" INTEGER);"); // 46: updatetime
+                "\"QPZK\" TEXT," + // 45: qpzk
+                "\"HPZK\" TEXT," + // 46: hpzk
+                "\"CREATETIME\" INTEGER," + // 47: createtime
+                "\"UPDATETIME\" INTEGER);"); // 48: updatetime
     }
 
     /** Drops the underlying database table. */
@@ -366,14 +370,24 @@ public class VehCheckInfoDao extends AbstractDao<VehCheckInfo, Long> {
             stmt.bindString(45, jy25);
         }
  
+        String qpzk = entity.getQpzk();
+        if (qpzk != null) {
+            stmt.bindString(46, qpzk);
+        }
+ 
+        String hpzk = entity.getHpzk();
+        if (hpzk != null) {
+            stmt.bindString(47, hpzk);
+        }
+ 
         java.util.Date createtime = entity.getCreatetime();
         if (createtime != null) {
-            stmt.bindLong(46, createtime.getTime());
+            stmt.bindLong(48, createtime.getTime());
         }
  
         java.util.Date updatetime = entity.getUpdatetime();
         if (updatetime != null) {
-            stmt.bindLong(47, updatetime.getTime());
+            stmt.bindLong(49, updatetime.getTime());
         }
     }
 
@@ -602,14 +616,24 @@ public class VehCheckInfoDao extends AbstractDao<VehCheckInfo, Long> {
             stmt.bindString(45, jy25);
         }
  
+        String qpzk = entity.getQpzk();
+        if (qpzk != null) {
+            stmt.bindString(46, qpzk);
+        }
+ 
+        String hpzk = entity.getHpzk();
+        if (hpzk != null) {
+            stmt.bindString(47, hpzk);
+        }
+ 
         java.util.Date createtime = entity.getCreatetime();
         if (createtime != null) {
-            stmt.bindLong(46, createtime.getTime());
+            stmt.bindLong(48, createtime.getTime());
         }
  
         java.util.Date updatetime = entity.getUpdatetime();
         if (updatetime != null) {
-            stmt.bindLong(47, updatetime.getTime());
+            stmt.bindLong(49, updatetime.getTime());
         }
     }
 
@@ -666,8 +690,10 @@ public class VehCheckInfoDao extends AbstractDao<VehCheckInfo, Long> {
             cursor.isNull(offset + 42) ? null : cursor.getString(offset + 42), // jy23
             cursor.isNull(offset + 43) ? null : cursor.getString(offset + 43), // jy24
             cursor.isNull(offset + 44) ? null : cursor.getString(offset + 44), // jy25
-            cursor.isNull(offset + 45) ? null : new java.util.Date(cursor.getLong(offset + 45)), // createtime
-            cursor.isNull(offset + 46) ? null : new java.util.Date(cursor.getLong(offset + 46)) // updatetime
+            cursor.isNull(offset + 45) ? null : cursor.getString(offset + 45), // qpzk
+            cursor.isNull(offset + 46) ? null : cursor.getString(offset + 46), // hpzk
+            cursor.isNull(offset + 47) ? null : new java.util.Date(cursor.getLong(offset + 47)), // createtime
+            cursor.isNull(offset + 48) ? null : new java.util.Date(cursor.getLong(offset + 48)) // updatetime
         );
         return entity;
     }
@@ -719,8 +745,10 @@ public class VehCheckInfoDao extends AbstractDao<VehCheckInfo, Long> {
         entity.setJy23(cursor.isNull(offset + 42) ? null : cursor.getString(offset + 42));
         entity.setJy24(cursor.isNull(offset + 43) ? null : cursor.getString(offset + 43));
         entity.setJy25(cursor.isNull(offset + 44) ? null : cursor.getString(offset + 44));
-        entity.setCreatetime(cursor.isNull(offset + 45) ? null : new java.util.Date(cursor.getLong(offset + 45)));
-        entity.setUpdatetime(cursor.isNull(offset + 46) ? null : new java.util.Date(cursor.getLong(offset + 46)));
+        entity.setQpzk(cursor.isNull(offset + 45) ? null : cursor.getString(offset + 45));
+        entity.setHpzk(cursor.isNull(offset + 46) ? null : cursor.getString(offset + 46));
+        entity.setCreatetime(cursor.isNull(offset + 47) ? null : new java.util.Date(cursor.getLong(offset + 47)));
+        entity.setUpdatetime(cursor.isNull(offset + 48) ? null : new java.util.Date(cursor.getLong(offset + 48)));
      }
     
     @Override

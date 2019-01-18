@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.text.method.DigitsKeyListener;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -73,6 +74,9 @@ public class VehBasicInfoClickListener extends SimpleClickListener {
             case 8://核定人数
                 editItemDialog(view,R.id.tv_arrow_value,entity);
                 break;
+            case 9://驾驶室准乘人数
+                editQpzkHpzkDialog(view,R.id.tv_arrow_value,entity);
+                break;
             default:
                 break;
         }
@@ -87,7 +91,7 @@ public class VehBasicInfoClickListener extends SimpleClickListener {
         builder.setSingleChoiceItems(valueArray, 0, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                final TextView textView = (TextView)itemView.findViewById(ResId);
+                final TextView textView = itemView.findViewById(ResId);
                 textView.setText(valueArray[which]);
                 entity.setField(VehBasicItemFields.ITEM_RIGHT_VALUE,valueArray[which]);
                 entity.setField(VehBasicItemFields.ITEM_RIGHT_VALUE_CODE,codeArray[which]);
@@ -136,6 +140,29 @@ public class VehBasicInfoClickListener extends SimpleClickListener {
                 dialog.cancel();
             }
         }).show();
+    }
+
+
+    private void editQpzkHpzkDialog(final View itemView, final int ResId, final MultipleItemEntity entity){
+        String itemName = entity.getField(VehBasicItemFields.ITEM_LEFT_TEXT);
+        String Title="请输入" + itemName;
+
+        View view = LayoutInflater.from(mContext).inflate(R.layout.dlg_qpzk_hpzk,null,false);
+        final EditText et1 = view.findViewById(R.id.et_qpzk);
+        final EditText et2 = view.findViewById(R.id.et_hpzk);
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle(Title).setView(view)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String value = et1.getText().toString().trim()+"+"+et2.getText().toString().trim();
+                        entity.setField(VehBasicItemFields.ITEM_RIGHT_VALUE,value);
+                        entity.setField(VehBasicItemFields.ITEM_RIGHT_VALUE_CODE,value);
+                        final TextView textView = itemView.findViewById(ResId);
+                        textView.setText(value);
+                    }
+                }).setNegativeButton("取消",null).show();
     }
 
 

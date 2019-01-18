@@ -58,6 +58,7 @@ public class NewCarScanFrm extends BottomItemDelegate implements ISuccess {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
+        mLsh.setText("");
         CallbackManager.getInstance()
                 .addCallback(CallbackType.ON_SCAN, new IGlobalCallback<String>() {
                     @Override

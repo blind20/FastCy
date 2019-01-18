@@ -2,11 +2,14 @@ package com.xs.fastcy.cypda.database;
 
 import android.content.Context;
 
-import com.flj.latte.util.log.LatteLogger;
 import com.xs.fastcy.cypda.entity.User;
 import com.xs.fastcy.cypda.entity.VehCheckInfo;
 import com.xs.fastcy.cypda.entity.VehPhoto;
+import com.xs.fastcy.cypda.gen.VehCheckInfoDao;
 
+import org.greenrobot.greendao.query.QueryBuilder;
+
+import java.util.Date;
 import java.util.List;
 
 
@@ -62,6 +65,11 @@ public class FastCyDbUtil {
         mDbManager.getVehCheckInfoDao().insertOrReplace(vehCheckInfo);
     }
 
+    public void updateVehCheckInfo(VehCheckInfo vehCheckInfo){
+        mDbManager.getVehCheckInfoDao().update(vehCheckInfo);
+    }
+
+
     public List<VehCheckInfo> queryVehCheckInfoByLsh(String lsh){
         List<VehCheckInfo> vehCheckInfos = mDbManager.getVehCheckInfoDao().queryRaw("where lsh = ?",new String[]{lsh});
         return vehCheckInfos;
@@ -81,8 +89,30 @@ public class FastCyDbUtil {
     }
 
     public List<VehCheckInfo> queryAllVehCheckInfo(){
-        List<VehCheckInfo> vehCheckInfos = mDbManager.getVehCheckInfoDao().loadAll();
-        return vehCheckInfos;
+        delete14DayBeforeVehCheckInfoAndPhoto();
+        QueryBuilder<VehCheckInfo> qb = mDbManager.getVehCheckInfoDao().queryBuilder()
+                .orderDesc(VehCheckInfoDao.Properties.Createtime);
+        return qb.list();
+    }
+
+    public List<VehCheckInfo> query14DayBeforeVehCheckInfo(){
+        Date now = new Date();
+        Date before = new Date(now.getTime()-14*24*60*60);
+        QueryBuilder<VehCheckInfo> qb = mDbManager.getVehCheckInfoDao().queryBuilder();
+        qb.whereOr(VehCheckInfoDao.Properties.Createtime.lt(before),
+                VehCheckInfoDao.Properties.Createtime.isNull());
+        return qb.list();
+    }
+
+    public void delete14DayBeforeVehCheckInfoAndPhoto(){
+        List<VehCheckInfo> vehs = query14DayBeforeVehCheckInfo();
+        if(vehs!=null && vehs.size()>0){
+            mDbManager.getVehCheckInfoDao().deleteInTx(vehs);
+            for (VehCheckInfo veh:vehs){
+                deleteVehPhotoByLsh(veh.getLsh());
+            }
+        }
+
     }
 
 

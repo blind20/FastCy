@@ -19,10 +19,12 @@ public class VehPhoto {
     private String clsbdh;
     private String hphm;
     private int jccs;
+    private String scbj; //1:上传成功;0:未上传
     private Date createtime;
-    @Generated(hash = 1048115500)
+    @Generated(hash = 238118359)
     public VehPhoto(Long photoId, String imgPath, String zpzl, String zpName,
-            String lsh, String clsbdh, String hphm, int jccs, Date createtime) {
+            String lsh, String clsbdh, String hphm, int jccs, String scbj,
+            Date createtime) {
         this.photoId = photoId;
         this.imgPath = imgPath;
         this.zpzl = zpzl;
@@ -31,6 +33,7 @@ public class VehPhoto {
         this.clsbdh = clsbdh;
         this.hphm = hphm;
         this.jccs = jccs;
+        this.scbj = scbj;
         this.createtime = createtime;
     }
     @Generated(hash = 277610246)
@@ -84,12 +87,19 @@ public class VehPhoto {
     public void setJccs(int jccs) {
         this.jccs = jccs;
     }
+    public String getScbj() {
+        return this.scbj;
+    }
+    public void setScbj(String scbj) {
+        this.scbj = scbj;
+    }
     public Date getCreatetime() {
         return this.createtime;
     }
     public void setCreatetime(Date createtime) {
         this.createtime = createtime;
     }
+
 
 
    

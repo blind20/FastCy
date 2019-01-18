@@ -61,9 +61,11 @@ public class VehCheckInfo implements Serializable {
     private String jy24;
     private String jy25;
 
+    private String qpzk;
+    private String hpzk;
     private Date createtime;
     private Date updatetime;
-    @Generated(hash = 72739896)
+    @Generated(hash = 2074538091)
     public VehCheckInfo(Long vehId, String lsh, String hphm, String hpzl,
             String syxz, String xczl, String clsbdh, String ywlx, String jczbh,
             String cllx, String csys, String hdzk, String cyjg, String veh_sfxc,
@@ -72,8 +74,8 @@ public class VehCheckInfo implements Serializable {
             String jy7, String jy8, String jy9, String jy10, String jy11,
             String jy12, String jy13, String jy14, String jy15, String jy16,
             String jy17, String jy18, String jy19, String jy20, String jy21,
-            String jy22, String jy23, String jy24, String jy25, Date createtime,
-            Date updatetime) {
+            String jy22, String jy23, String jy24, String jy25, String qpzk,
+            String hpzk, Date createtime, Date updatetime) {
         this.vehId = vehId;
         this.lsh = lsh;
         this.hphm = hphm;
@@ -119,6 +121,8 @@ public class VehCheckInfo implements Serializable {
         this.jy23 = jy23;
         this.jy24 = jy24;
         this.jy25 = jy25;
+        this.qpzk = qpzk;
+        this.hpzk = hpzk;
         this.createtime = createtime;
         this.updatetime = updatetime;
     }
@@ -395,6 +399,18 @@ public class VehCheckInfo implements Serializable {
     public void setJy25(String jy25) {
         this.jy25 = jy25;
     }
+    public String getQpzk() {
+        return this.qpzk;
+    }
+    public void setQpzk(String qpzk) {
+        this.qpzk = qpzk;
+    }
+    public String getHpzk() {
+        return this.hpzk;
+    }
+    public void setHpzk(String hpzk) {
+        this.hpzk = hpzk;
+    }
     public Date getCreatetime() {
         return this.createtime;
     }
@@ -409,7 +425,58 @@ public class VehCheckInfo implements Serializable {
     }
 
 
-
-
-
+    @Override
+    public String toString() {
+        return "VehCheckInfo{" +
+                "vehId=" + vehId +
+                ", lsh='" + lsh + '\'' +
+                ", hphm='" + hphm + '\'' +
+                ", hpzl='" + hpzl + '\'' +
+                ", syxz='" + syxz + '\'' +
+                ", xczl='" + xczl + '\'' +
+                ", clsbdh='" + clsbdh + '\'' +
+                ", ywlx='" + ywlx + '\'' +
+                ", jczbh='" + jczbh + '\'' +
+                ", cllx='" + cllx + '\'' +
+                ", csys='" + csys + '\'' +
+                ", hdzk='" + hdzk + '\'' +
+                ", cyjg='" + cyjg + '\'' +
+                ", veh_sfxc='" + veh_sfxc + '\'' +
+                ", bz='" + bz + '\'' +
+                ", bh='" + bh + '\'' +
+                ", cyr='" + cyr + '\'' +
+                ", cycs=" + cycs +
+                ", sfxny='" + sfxny + '\'' +
+                ", xnyzl='" + xnyzl + '\'' +
+                ", jy1='" + jy1 + '\'' +
+                ", jy2='" + jy2 + '\'' +
+                ", jy3='" + jy3 + '\'' +
+                ", jy4='" + jy4 + '\'' +
+                ", jy5='" + jy5 + '\'' +
+                ", jy6='" + jy6 + '\'' +
+                ", jy7='" + jy7 + '\'' +
+                ", jy8='" + jy8 + '\'' +
+                ", jy9='" + jy9 + '\'' +
+                ", jy10='" + jy10 + '\'' +
+                ", jy11='" + jy11 + '\'' +
+                ", jy12='" + jy12 + '\'' +
+                ", jy13='" + jy13 + '\'' +
+                ", jy14='" + jy14 + '\'' +
+                ", jy15='" + jy15 + '\'' +
+                ", jy16='" + jy16 + '\'' +
+                ", jy17='" + jy17 + '\'' +
+                ", jy18='" + jy18 + '\'' +
+                ", jy19='" + jy19 + '\'' +
+                ", jy20='" + jy20 + '\'' +
+                ", jy21='" + jy21 + '\'' +
+                ", jy22='" + jy22 + '\'' +
+                ", jy23='" + jy23 + '\'' +
+                ", jy24='" + jy24 + '\'' +
+                ", jy25='" + jy25 + '\'' +
+                ", qpzk='" + qpzk + '\'' +
+                ", hpzk='" + hpzk + '\'' +
+                ", createtime=" + createtime +
+                ", updatetime=" + updatetime +
+                '}';
+    }
 }

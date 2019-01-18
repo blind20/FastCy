@@ -9,6 +9,7 @@
         <item>车辆类型</item>
         <item>车身颜色</item>
         <item>核定人数</item>
+        <item>驾驶室准乘人数</item>
     </string-array>
 
     <string-array name="veh_common_en">
@@ -20,6 +21,7 @@
         <item>cllx</item>
         <item>csys</item>
         <item>hdzk</item>
+        <item>qpzk_hpzk</item>
     </string-array>
 
     <string-array name="veh_school">

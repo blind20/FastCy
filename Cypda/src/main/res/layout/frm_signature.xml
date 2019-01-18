@@ -155,9 +155,9 @@
 
     <LinearLayout
         android:id="@+id/signature_pad_container"
-        android:visibility="invisible"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <com.github.gcacace.signaturepad.views.SignaturePad
@@ -192,5 +192,34 @@
         </LinearLayout>
     </LinearLayout>
 
+    <!--当不显示签名时，展示临时保存按钮
+    -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"/>
+            <Button
+                android:id="@+id/btn_savetodb"
+                android:layout_height="match_parent"
+                android:layout_width="100dp"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/white"
+                android:text="临时保存"/>
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

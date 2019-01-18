@@ -8,7 +8,10 @@ import com.flj.latte.ui.recycler.MultipleViewHolder;
 import com.xs.fastcy.cypda.R;
 import com.xs.fastcy.cypda.fragment.VehItemType;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.SimpleFormatter;
 
 public class WaitUploadVehListAdapter extends MultipleRecyclerAdapter {
 
@@ -30,11 +33,16 @@ public class WaitUploadVehListAdapter extends MultipleRecyclerAdapter {
                 String clsbdh = entity.getField(WaitUploadVehItemFields.ITEM_WAIT_UPLOAD_VEH_CLSBDH);
                 String hphm = entity.getField(WaitUploadVehItemFields.ITEM_WAIT_UPLOAD_VEH_HPHM);
                 String lsh = entity.getField(WaitUploadVehItemFields.ITEM_WAIT_UPLOAD_VEH_LSH);
-                String time = entity.getField(WaitUploadVehItemFields.ITEM_WAIT_UPLOAD_VEH_TIME);
+                Date time = entity.getField(WaitUploadVehItemFields.ITEM_WAIT_UPLOAD_VEH_TIME);
                 tv_clsbdh.setText(clsbdh);
                 tv_hphm.setText(hphm);
                 tv_lsh.setText(lsh);
-                tv_time.setText(time);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                if(time!=null){
+                    tv_time.setText(sdf.format(time));
+                }else {
+                    tv_time.setText("");
+                }
                 break;
             default:
                 break;

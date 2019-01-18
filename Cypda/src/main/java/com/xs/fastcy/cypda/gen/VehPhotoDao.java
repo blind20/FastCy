@@ -32,7 +32,8 @@ public class VehPhotoDao extends AbstractDao<VehPhoto, Long> {
         public final static Property Clsbdh = new Property(5, String.class, "clsbdh", false, "CLSBDH");
         public final static Property Hphm = new Property(6, String.class, "hphm", false, "HPHM");
         public final static Property Jccs = new Property(7, int.class, "jccs", false, "JCCS");
-        public final static Property Createtime = new Property(8, java.util.Date.class, "createtime", false, "CREATETIME");
+        public final static Property Scbj = new Property(8, String.class, "scbj", false, "SCBJ");
+        public final static Property Createtime = new Property(9, java.util.Date.class, "createtime", false, "CREATETIME");
     }
 
 
@@ -56,7 +57,8 @@ public class VehPhotoDao extends AbstractDao<VehPhoto, Long> {
                 "\"CLSBDH\" TEXT," + // 5: clsbdh
                 "\"HPHM\" TEXT," + // 6: hphm
                 "\"JCCS\" INTEGER NOT NULL ," + // 7: jccs
-                "\"CREATETIME\" INTEGER);"); // 8: createtime
+                "\"SCBJ\" TEXT," + // 8: scbj
+                "\"CREATETIME\" INTEGER);"); // 9: createtime
     }
 
     /** Drops the underlying database table. */
@@ -105,9 +107,14 @@ public class VehPhotoDao extends AbstractDao<VehPhoto, Long> {
         }
         stmt.bindLong(8, entity.getJccs());
  
+        String scbj = entity.getScbj();
+        if (scbj != null) {
+            stmt.bindString(9, scbj);
+        }
+ 
         java.util.Date createtime = entity.getCreatetime();
         if (createtime != null) {
-            stmt.bindLong(9, createtime.getTime());
+            stmt.bindLong(10, createtime.getTime());
         }
     }
 
@@ -151,9 +158,14 @@ public class VehPhotoDao extends AbstractDao<VehPhoto, Long> {
         }
         stmt.bindLong(8, entity.getJccs());
  
+        String scbj = entity.getScbj();
+        if (scbj != null) {
+            stmt.bindString(9, scbj);
+        }
+ 
         java.util.Date createtime = entity.getCreatetime();
         if (createtime != null) {
-            stmt.bindLong(9, createtime.getTime());
+            stmt.bindLong(10, createtime.getTime());
         }
     }
 
@@ -173,7 +185,8 @@ public class VehPhotoDao extends AbstractDao<VehPhoto, Long> {
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // clsbdh
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // hphm
             cursor.getInt(offset + 7), // jccs
-            cursor.isNull(offset + 8) ? null : new java.util.Date(cursor.getLong(offset + 8)) // createtime
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // scbj
+            cursor.isNull(offset + 9) ? null : new java.util.Date(cursor.getLong(offset + 9)) // createtime
         );
         return entity;
     }
@@ -188,7 +201,8 @@ public class VehPhotoDao extends AbstractDao<VehPhoto, Long> {
         entity.setClsbdh(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setHphm(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
         entity.setJccs(cursor.getInt(offset + 7));
-        entity.setCreatetime(cursor.isNull(offset + 8) ? null : new java.util.Date(cursor.getLong(offset + 8)));
+        entity.setScbj(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setCreatetime(cursor.isNull(offset + 9) ? null : new java.util.Date(cursor.getLong(offset + 9)));
      }
     
     @Override

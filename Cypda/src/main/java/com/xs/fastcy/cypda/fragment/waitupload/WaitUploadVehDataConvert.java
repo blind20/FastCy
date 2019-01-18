@@ -28,7 +28,7 @@ public class WaitUploadVehDataConvert extends DataConverter {
                     .setField(WaitUploadVehItemFields.ITEM_WAIT_UPLOAD_VEH_CLSBDH,vehCheckInfo.getClsbdh())
                     .setField(WaitUploadVehItemFields.ITEM_WAIT_UPLOAD_VEH_HPHM,vehCheckInfo.getHphm())
                     .setField(WaitUploadVehItemFields.ITEM_WAIT_UPLOAD_VEH_LSH,vehCheckInfo.getLsh())
-                    .setField(WaitUploadVehItemFields.ITEM_WAIT_UPLOAD_VEH_TIME,"2018-12-12")
+                    .setField(WaitUploadVehItemFields.ITEM_WAIT_UPLOAD_VEH_TIME,vehCheckInfo.getCreatetime())
                     .build();
             ENTITIES.add(entity);
         }

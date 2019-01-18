@@ -61,7 +61,7 @@ public class SignatureFrm extends LatteDelegate {
     @BindView(R2.id.tv_next)
     AppCompatTextView mUploadTextView;
 
-    @OnClick({R2.id.clear_button,R2.id.save_button,R2.id.tv_back})
+    @OnClick({R2.id.clear_button,R2.id.save_button,R2.id.tv_back,R2.id.btn_savetodb})
     void onClickEvent(View view){
         switch (view.getId()){
             case R.id.clear_button:
@@ -73,33 +73,20 @@ public class SignatureFrm extends LatteDelegate {
                 break;
             case R.id.tv_back:
                 getSupportDelegate().pop();
+                break;
+            case R.id.btn_savetodb:
+                VehCheckInfo veh = setCyjlToVehChek(mVehCheckInfo);
+                mFastCyDbUtil.updateVehCheckInfo(veh);
+                ToastUtils.showShort("保存成功");
+                getSupportDelegate().popTo(CyBottomDelegate.class,false);
+                break;
         }
     }
 
 
 
     private void uploadCyxm(final VehCheckInfo vehCheckInfo){
-        String cyjl =mCyjlSpinner.getSelectedItem().toString().split(":")[0];
-        vehCheckInfo.setCyjg(cyjl);
-        User user = new FastCyDbUtil(getContext()).queryLoginUser();
-        vehCheckInfo.setCyr(user.getSfzmhm());
-
-        WeakHashMap<String, Object> params =  BeanRefUtil.getFieldValueMap(vehCheckInfo);
-        Set<Map.Entry<String, Object>> set=params.entrySet();
-        Iterator<Map.Entry<String, Object>> it = set.iterator();
-        while (it.hasNext()){
-            Map.Entry<String, Object> entry=it.next();
-            Object value = entry.getValue();
-            if(value!=null){
-                if(value instanceof String){
-                    if(ToolUtil.isEmpty((String)value)){
-                        it.remove();
-                    }
-                }
-            }else {
-                it.remove();
-            }
-        }
+        WeakHashMap<String, Object> params = getWeakHashMapFromVehCheck(vehCheckInfo);
         RestClient.builder().url("pdaService/addVehCheckInfo")
                 .loader(getContext())
                 .params(params)
@@ -141,31 +128,35 @@ public class SignatureFrm extends LatteDelegate {
 
     }
 
-    private void uploadSignImg(Bitmap bmp, String zpCode,VehCheckInfo vehCheckInfo) {
-        Map<String,Object> params = new HashMap<>();
-        params.put("lsh",vehCheckInfo.getLsh());
-        params.put("clsbdh",vehCheckInfo.getClsbdh());
-        params.put("hpzl",vehCheckInfo.getHpzl());
-        params.put("zpzl",zpCode);
-        params.put("jccs",vehCheckInfo.getCycs());
-        String base64 = ToolUtil.bitmaptoString(bmp);
-        params.put("imageStr",base64);
-        JSONObject jo = JSONObject.parseObject(JSON.toJSONString(params));
-        RestClient.builder().url("pdaService/uploadImageFile")
-                .loader(getContext())
-                .raw(jo.toString())
-                .success(new ISuccess() {
-                    @Override
-                    public void onSuccess(String response) {
-                        if(!ToolUtil.isEmpty(response)){
-                            JSONObject jo = JSON.parseObject(response);
-                            ToastUtils.showShort(jo.getString("message"));
-                        }
+    @NonNull
+    private WeakHashMap<String, Object> getWeakHashMapFromVehCheck(VehCheckInfo veh) {
+        VehCheckInfo vehCheckInfo = setCyjlToVehChek(veh);
+        WeakHashMap<String, Object> params =  BeanRefUtil.getFieldValueMap(vehCheckInfo);
+        Set<Map.Entry<String, Object>> set=params.entrySet();
+        Iterator<Map.Entry<String, Object>> it = set.iterator();
+        while (it.hasNext()){
+            Map.Entry<String, Object> entry=it.next();
+            Object value = entry.getValue();
+            if(value!=null){
+                if(value instanceof String){
+                    if(ToolUtil.isEmpty((String)value)){
+                        it.remove();
                     }
-                })
-                .build().post();
+                }
+            }else {
+                it.remove();
+            }
+        }
+        return params;
     }
 
+    private VehCheckInfo setCyjlToVehChek(VehCheckInfo vehCheckInfo) {
+        String cyjl =mCyjlSpinner.getSelectedItem().toString().split(":")[0];
+        vehCheckInfo.setCyjg(cyjl);
+        User user = new FastCyDbUtil(getContext()).queryLoginUser();
+        vehCheckInfo.setCyr(user.getSfzmhm());
+        return vehCheckInfo;
+    }
 
 
     @Override
@@ -204,9 +195,39 @@ public class SignatureFrm extends LatteDelegate {
         });
     }
 
+
+
     @Override
     public Object setLayout() {
         return R.layout.frm_signature;
+    }
+
+    /**
+     * 上传签名图片
+     */
+    private void uploadSignImg(Bitmap bmp, String zpCode,VehCheckInfo vehCheckInfo) {
+        Map<String,Object> params = new HashMap<>();
+        params.put("lsh",vehCheckInfo.getLsh());
+        params.put("clsbdh",vehCheckInfo.getClsbdh());
+        params.put("hpzl",vehCheckInfo.getHpzl());
+        params.put("zpzl",zpCode);
+        params.put("jccs",vehCheckInfo.getCycs());
+        String base64 = ToolUtil.bitmaptoString(bmp);
+        params.put("imageStr",base64);
+        JSONObject jo = JSONObject.parseObject(JSON.toJSONString(params));
+        RestClient.builder().url("pdaService/uploadImageFile")
+                .loader(getContext())
+                .raw(jo.toString())
+                .success(new ISuccess() {
+                    @Override
+                    public void onSuccess(String response) {
+                        if(!ToolUtil.isEmpty(response)){
+                            JSONObject jo = JSON.parseObject(response);
+                            ToastUtils.showShort(jo.getString("message"));
+                        }
+                    }
+                })
+                .build().post();
     }
 
     @Override
