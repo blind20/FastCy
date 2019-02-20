@@ -346,7 +346,7 @@ public class VehBasicInfoFrm extends LatteDelegate   {
     }
 
     private void saveVehCheckIntoDB(VehCheckInfo vehCheckInfo){
-        new FastCyDbUtil(getContext()).insertVehCheckInfo(vehCheckInfo);
+        new FastCyDbUtil().insertVehCheckInfo(vehCheckInfo);
     }
 
 

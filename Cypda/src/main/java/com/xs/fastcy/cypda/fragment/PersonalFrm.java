@@ -87,7 +87,7 @@ public class PersonalFrm extends BottomItemDelegate {
     }
 
     private User getUserInfo(){
-        User user=new FastCyDbUtil(getContext()).queryLoginUser();
+        User user=new FastCyDbUtil().queryLoginUser();
         return user;
     }
 

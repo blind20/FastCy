@@ -67,7 +67,7 @@ public class WaitUploadVehListFrm extends BottomItemDelegate {
     private void refreshItems() {
         if(mAdapter!=null){
 //            mVehList.clear();
-            mVehList = new FastCyDbUtil(mContext).queryAllVehCheckInfo();
+            mVehList = new FastCyDbUtil().queryAllVehCheckInfo();
 //            List<VehCheckInfo> list22= new FastCyDbUtil(mContext).query14DayBeforeVehCheckInfo();
 //            LatteLogger.json("mVehList22",JSON.toJSONString(list22));
             mData.clear();
@@ -79,7 +79,7 @@ public class WaitUploadVehListFrm extends BottomItemDelegate {
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        mVehList = new FastCyDbUtil(mContext).queryAllVehCheckInfo();
+        mVehList = new FastCyDbUtil().queryAllVehCheckInfo();
         mDataConvert = new WaitUploadVehDataConvert();
         final LinearLayoutManager manager = new LinearLayoutManager(mContext);
         mRecyclerView.setLayoutManager(manager);
@@ -91,9 +91,8 @@ public class WaitUploadVehListFrm extends BottomItemDelegate {
 
     @Override
     public void onResume() {
-        LatteLogger.e("onresume","onresume+++++++++");
         if(mAdapter!=null){
-            mVehList = new FastCyDbUtil(mContext).queryAllVehCheckInfo();
+            mVehList = new FastCyDbUtil().queryAllVehCheckInfo();
             mAdapter.notifyDataSetChanged();
         }
         super.onResume();

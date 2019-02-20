@@ -14,30 +14,30 @@ import java.util.List;
 
 
 public class FastCyDbUtil {
-    private DbManager mDbManager;
-
-    public FastCyDbUtil(Context context) {
-        this.mDbManager = DbManager.getInstance();
-        mDbManager.init(context);
-    }
+//    private DbManager mDbManager;
+//
+//    public FastCyDbUtil(Context context) {
+//        this.mDbManager = DbManager.getInstance();
+//        mDbManager.init(context);
+//    }
 
     public void insertUser(User loginUser){
         List<User> users = updateUsersNotLogin();
         if(users ==null){
-            mDbManager.getUserDao().insertOrReplace(loginUser);
+            DbManager.getInstance().getUserDao().insertOrReplace(loginUser);
         }else {
             for (User user:users) {
                 if(user.getUsername().equals(loginUser.getUsername())){
-                    mDbManager.getUserDao().delete(user);
+                    DbManager.getInstance().getUserDao().delete(user);
                 }
             }
-            mDbManager.getUserDao().insertOrReplace(loginUser);
+            DbManager.getInstance().getUserDao().insertOrReplace(loginUser);
         }
 
     }
 
     public User queryLoginUser(){
-        List<User> users = mDbManager.getUserDao().loadAll();
+        List<User> users = DbManager.getInstance().getUserDao().loadAll();
         for (User user:users){
             if(user.getIsLoginTag()){
                 return user;
@@ -47,14 +47,14 @@ public class FastCyDbUtil {
     }
 
     public List<User> updateUsersNotLogin(){
-        List<User> users = mDbManager.getUserDao().loadAll();
+        List<User> users = DbManager.getInstance().getUserDao().loadAll();
         if (users==null||users.size()==0){
             return null;
         }else {
             for (User user : users){
                 user.setIsLoginTag(false);
             }
-            mDbManager.getUserDao().updateInTx(users);
+            DbManager.getInstance().getUserDao().updateInTx(users);
             return users;
         }
     }
@@ -62,16 +62,16 @@ public class FastCyDbUtil {
 
     public void insertVehCheckInfo(VehCheckInfo vehCheckInfo){
         deleteVehCheckInfoByLsh(vehCheckInfo.getLsh());
-        mDbManager.getVehCheckInfoDao().insertOrReplace(vehCheckInfo);
+        DbManager.getInstance().getVehCheckInfoDao().insertOrReplace(vehCheckInfo);
     }
 
     public void updateVehCheckInfo(VehCheckInfo vehCheckInfo){
-        mDbManager.getVehCheckInfoDao().update(vehCheckInfo);
+        DbManager.getInstance().getVehCheckInfoDao().update(vehCheckInfo);
     }
 
 
     public List<VehCheckInfo> queryVehCheckInfoByLsh(String lsh){
-        List<VehCheckInfo> vehCheckInfos = mDbManager.getVehCheckInfoDao().queryRaw("where lsh = ?",new String[]{lsh});
+        List<VehCheckInfo> vehCheckInfos = DbManager.getInstance().getVehCheckInfoDao().queryRaw("where lsh = ?",new String[]{lsh});
         return vehCheckInfos;
     }
 
@@ -79,7 +79,7 @@ public class FastCyDbUtil {
         List<VehCheckInfo> vehs = queryVehCheckInfoByLsh(lsh);
         if (vehs != null && vehs.size()>0) {
             for (VehCheckInfo veh : vehs) {
-                mDbManager.getVehCheckInfoDao().delete(veh);
+                DbManager.getInstance().getVehCheckInfoDao().delete(veh);
             }
         }
     }
@@ -90,15 +90,15 @@ public class FastCyDbUtil {
 
     public List<VehCheckInfo> queryAllVehCheckInfo(){
         delete14DayBeforeVehCheckInfoAndPhoto();
-        QueryBuilder<VehCheckInfo> qb = mDbManager.getVehCheckInfoDao().queryBuilder()
+        QueryBuilder<VehCheckInfo> qb = DbManager.getInstance().getVehCheckInfoDao().queryBuilder()
                 .orderDesc(VehCheckInfoDao.Properties.Createtime);
         return qb.list();
     }
 
     public List<VehCheckInfo> query14DayBeforeVehCheckInfo(){
         Date now = new Date();
-        Date before = new Date(now.getTime()-14*24*60*60);
-        QueryBuilder<VehCheckInfo> qb = mDbManager.getVehCheckInfoDao().queryBuilder();
+        Date before = new Date(now.getTime()-14*24*60*60*1000);
+        QueryBuilder<VehCheckInfo> qb = DbManager.getInstance().getVehCheckInfoDao().queryBuilder();
         qb.whereOr(VehCheckInfoDao.Properties.Createtime.lt(before),
                 VehCheckInfoDao.Properties.Createtime.isNull());
         return qb.list();
@@ -107,7 +107,7 @@ public class FastCyDbUtil {
     public void delete14DayBeforeVehCheckInfoAndPhoto(){
         List<VehCheckInfo> vehs = query14DayBeforeVehCheckInfo();
         if(vehs!=null && vehs.size()>0){
-            mDbManager.getVehCheckInfoDao().deleteInTx(vehs);
+            DbManager.getInstance().getVehCheckInfoDao().deleteInTx(vehs);
             for (VehCheckInfo veh:vehs){
                 deleteVehPhotoByLsh(veh.getLsh());
             }
@@ -120,33 +120,33 @@ public class FastCyDbUtil {
         List<VehPhoto> photos = queryVehPhotoByLshAndZpzl(vehPhotoInfo.getLsh(),vehPhotoInfo.getZpzl());
         if(photos!=null && photos.size()> 0){
             for (VehPhoto vehPhoto : photos){
-                mDbManager.getVehPhotoDao().delete(vehPhoto);
+                DbManager.getInstance().getVehPhotoDao().delete(vehPhoto);
             }
         }
-        mDbManager.getVehPhotoDao().insertOrReplace(vehPhotoInfo);
+        DbManager.getInstance().getVehPhotoDao().insertOrReplace(vehPhotoInfo);
     }
 
     public List<VehPhoto> queryVehPhotoByLshAndZpzl(String lsh,String zpzl){
-        List<VehPhoto> photos = mDbManager.getVehPhotoDao().queryRaw(
+        List<VehPhoto> photos = DbManager.getInstance().getVehPhotoDao().queryRaw(
                 "where lsh = ? and zpzl =?",
                 new String[]{lsh,zpzl});
         return photos;
     }
 
     public List<VehPhoto> queryVehPhotoByLsh(String lsh){
-        List<VehPhoto> photos = mDbManager.getVehPhotoDao().queryRaw(
+        List<VehPhoto> photos = DbManager.getInstance().getVehPhotoDao().queryRaw(
                 "where lsh = ? ",
                 new String[]{lsh});
         return photos;
     }
 
     public void deleteVehPhotoByLsh(String lsh){
-        List<VehPhoto> photos = mDbManager.getVehPhotoDao().queryRaw(
+        List<VehPhoto> photos = DbManager.getInstance().getVehPhotoDao().queryRaw(
                 "where lsh = ? ",
                 new String[]{lsh});
         if(photos!=null && photos.size()> 0){
             for (VehPhoto vehPhoto : photos){
-                mDbManager.getVehPhotoDao().delete(vehPhoto);
+                DbManager.getInstance().getVehPhotoDao().delete(vehPhoto);
             }
         }
     }

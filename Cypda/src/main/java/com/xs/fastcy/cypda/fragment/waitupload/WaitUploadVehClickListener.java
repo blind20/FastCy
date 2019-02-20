@@ -26,13 +26,13 @@ public class WaitUploadVehClickListener extends SimpleClickListener {
     public WaitUploadVehClickListener(WaitUploadVehListFrm fragment){
         this.DELEGATE = fragment;
         this.mContext = DELEGATE.getContext();
-        this.mDbUtil = new FastCyDbUtil(mContext);
+        this.mDbUtil = new FastCyDbUtil();
     }
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         final MultipleItemEntity entity = (MultipleItemEntity) adapter.getData().get(position);
         String lsh = entity.getField(WaitUploadVehItemFields.ITEM_WAIT_UPLOAD_VEH_LSH);
-        FastCyDbUtil dbUtil = new FastCyDbUtil(DELEGATE.getContext());
+        FastCyDbUtil dbUtil = new FastCyDbUtil();
         List<VehCheckInfo> list = dbUtil.queryVehCheckInfoByLsh(lsh);
         try {
             if(list!=null || list.size()>0){

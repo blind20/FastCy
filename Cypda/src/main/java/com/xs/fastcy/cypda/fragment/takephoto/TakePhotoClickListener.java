@@ -164,7 +164,7 @@ public class TakePhotoClickListener extends SimpleClickListener implements ISucc
                 vehPhoto.setImgPath(mImagePath);
                 vehPhoto.setHphm(mVehCheckInfo.getHphm());
                 vehPhoto.setJccs(mVehCheckInfo.getCycs());
-                new FastCyDbUtil(mContext).insertVehPhoto(vehPhoto);
+                new FastCyDbUtil().insertVehPhoto(vehPhoto);
                 mHint.setText(mZpName+"上传成功");
             }else {
                 mHint.setText(mZpName+"上传失败:"+msg);

@@ -63,7 +63,7 @@ public class TakePhotoFrm extends LatteDelegate {
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
         final Context con = getContext();
-        fastdb = new FastCyDbUtil(con);
+        fastdb = new FastCyDbUtil();
         mVehCheckInfo = (VehCheckInfo) getArguments().getSerializable("data");
         if(mVehCheckInfo !=null){
             List<VehPhoto> photos = getVehPhotos(mVehCheckInfo);

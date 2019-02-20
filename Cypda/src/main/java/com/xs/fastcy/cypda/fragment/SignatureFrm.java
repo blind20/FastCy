@@ -153,7 +153,7 @@ public class SignatureFrm extends LatteDelegate {
     private VehCheckInfo setCyjlToVehChek(VehCheckInfo vehCheckInfo) {
         String cyjl =mCyjlSpinner.getSelectedItem().toString().split(":")[0];
         vehCheckInfo.setCyjg(cyjl);
-        User user = new FastCyDbUtil(getContext()).queryLoginUser();
+        User user = new FastCyDbUtil().queryLoginUser();
         vehCheckInfo.setCyr(user.getSfzmhm());
         return vehCheckInfo;
     }
@@ -162,7 +162,7 @@ public class SignatureFrm extends LatteDelegate {
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
         mContext = getContext();
-        mFastCyDbUtil = new FastCyDbUtil(mContext);
+        mFastCyDbUtil = new FastCyDbUtil();
         mVehCheckInfo = (VehCheckInfo) getArguments().getSerializable("data");
         mLsh.setText(mVehCheckInfo.getLsh());
         mClsbdh.setText(mVehCheckInfo.getClsbdh());

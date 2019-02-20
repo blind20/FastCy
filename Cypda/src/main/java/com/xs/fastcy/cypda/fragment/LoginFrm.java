@@ -107,7 +107,7 @@ public class LoginFrm extends LatteDelegate implements ISuccess,IFailure,IError{
         user.setBmmc(jo.getString("bmmc"));
         user.setSfzmhm(jo.getString("sfzh"));
         user.setIsLoginTag(true);
-        new FastCyDbUtil(getContext()).insertUser(user);
+        new FastCyDbUtil().insertUser(user);
         SharedPreferenceUtils.put(Latte.getApplicationContext(),"userName",user.getUsername());
         SharedPreferenceUtils.put(Latte.getApplicationContext(),"password",user.getPassword());
         getSupportDelegate().start(new CyBottomDelegate());
