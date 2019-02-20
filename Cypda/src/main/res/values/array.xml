@@ -240,7 +240,7 @@
     </string-array>
 
     <!-- 抚州用  -->
-    <string-array name="zpzl">
+    <!--<string-array name="zpzl">
         <item>左前斜视45度</item>
         <item>车辆识别代号</item>
         <item>右后斜视45度</item>
@@ -279,11 +279,11 @@
         <item>67</item>
         <item>68</item>
         <item>69</item>
-    </string-array>
+    </string-array>-->
 
 
     <!-- 常州用  -->
-    <!--<string-array name="zpzl">
+    <string-array name="zpzl">
         <item>左前斜视45度</item>
         <item>风窗立柱车架</item>
         <item>轮胎规格</item>
@@ -325,7 +325,7 @@
         <item>43</item>
         <item>44</item>
         <item>47</item>
-    </string-array>-->
+    </string-array>
 
     <string-array name="cllx">
         <item>K16:大型轿车</item>

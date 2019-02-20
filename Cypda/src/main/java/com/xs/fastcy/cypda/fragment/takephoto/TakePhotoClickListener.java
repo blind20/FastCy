@@ -143,7 +143,7 @@ public class TakePhotoClickListener extends SimpleClickListener implements ISucc
         //Map转换成JSONObject上传
         JSONObject jo = JSONObject.parseObject(JSON.toJSONString(params));
         RestClient.builder().url("pdaService/uploadImageFile")
-                .loader(mContext)
+//                .loader(mContext)
                 .raw(jo.toString())
                 .success(this).error(this).failure(this).build().post();
     }

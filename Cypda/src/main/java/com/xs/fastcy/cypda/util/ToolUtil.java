@@ -139,4 +139,27 @@ public class ToolUtil {
         return verName;
     }
 
+
+    public static String convertOneColor(String color){
+        if(!color.equals("请选择颜色")){
+            return color+",";
+        }
+        return "";
+    }
+    public static String convertOneColorCode(String colorCode){
+        if(!colorCode.equalsIgnoreCase("NULL")){
+            return colorCode+",";
+        }
+        return "";
+    }
+
+    public static String convertColorCodeByColor(String csys){
+        if(TextUtils.isEmpty(csys)){
+            return "";
+        }
+        String[] array = csys.split(",");
+
+        return null;
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.xs.fastcy.cypda.fragment.baseinfo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -44,7 +45,7 @@ import butterknife.OnClick;
 public class VehBasicInfoFrm extends LatteDelegate   {
     @BindView(R2.id.rv_veh_baseinfo)
     RecyclerView mRecyclerView = null;
-
+    Context mContext;
     VehBasicInfoAdapter mAdapter;
     VehCheckInfo mVehCheckInfo;
 
@@ -126,6 +127,7 @@ public class VehBasicInfoFrm extends LatteDelegate   {
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
         Bundle bundle = getArguments();
+        mContext = getContext();
         mVehCheckInfo = (VehCheckInfo) bundle.getSerializable("vehCheckInfo");
         if(mVehCheckInfo==null){
             mJSON = bundle.getString("data");
@@ -141,11 +143,14 @@ public class VehBasicInfoFrm extends LatteDelegate   {
         }else {
             setBasicInitValueByVehCheckInfo(mVehCheckInfo);
         }
+        //针对在用车代码转换
+        String conJson = convertJSON(mJSON,mIsNewCar);
+
         final ArrayList<MultipleItemEntity> data = new VehBasicInfoDataConverter()
                 .setIsSchoolVeh(mIsSchoolCar)
                 .setHphmFull(mHphmFull)
                 .setContext(getContext())
-                .setJsonData(mJSON).convert();
+                .setJsonData(conJson).convert();
         mAdapter = new VehBasicInfoAdapter(data);
         final LinearLayoutManager manager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(manager);
@@ -163,6 +168,35 @@ public class VehBasicInfoFrm extends LatteDelegate   {
                         }
                     }
                 });
+    }
+
+    private String convertJSON(String jsonObj,boolean isNewCar) {
+        if(isNewCar || ToolUtil.isEmpty(jsonObj)){
+            return jsonObj;
+        }
+        JSONObject jo = JSON.parseObject(jsonObj);
+        String hpzl = ToolUtil.getValueByKeyInArrayRes(mContext,
+                jo.getString("hpzl"),
+                R.array.hpzl, R.array.hpzlcode);
+        String syxz = ToolUtil.getValueByKeyInArrayRes(mContext,
+                jo.getString("syxz"),
+                R.array.syxz, R.array.syxzcode);
+        String cllx = jo.getString("cllx");
+        String[] arr = ToolUtil.getArrayByResouce(mContext, R.array.cllx);
+        String cllxcode = null;
+        for (String str : arr) {
+            if (str.contains(cllx)) {
+                cllxcode = str.split(":")[0];
+                break;
+            }
+        }
+        jo.remove("hpzl");
+        jo.put("hpzl", hpzl);
+        jo.remove("syxz");
+        jo.put("syxz", syxz);
+        jo.remove("cllx");
+        jo.put("cllx", cllxcode);
+        return jo.toString();
     }
 
     private boolean checkData(VehCheckInfo vehCheckInfo) {

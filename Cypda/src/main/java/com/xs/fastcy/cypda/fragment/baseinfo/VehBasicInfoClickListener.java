@@ -10,13 +10,21 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.bigkoo.pickerview.OptionsPickerView;
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.SimpleClickListener;
 import com.flj.latte.ui.recycler.MultipleFields;
 import com.flj.latte.ui.recycler.MultipleItemEntity;
+import com.flj.latte.util.log.LatteLogger;
 import com.xs.fastcy.cypda.R;
 import com.xs.fastcy.cypda.fragment.RequestCodes;
+import com.xs.fastcy.cypda.util.CsysConvert;
 import com.xs.fastcy.cypda.util.ToolUtil;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class VehBasicInfoClickListener extends SimpleClickListener {
 
@@ -65,10 +73,10 @@ public class VehBasicInfoClickListener extends SimpleClickListener {
                 getItemsSpDialog(mCllxArray,view,R.id.tv_arrow_value,entity);
                 break;
             case 7:
-                VehCsysFrm vehCsysFrm = entity.getField(VehBasicItemFields.DELEGATE);
-                vehCsysFrm.setTargetFragment(FRAGMENT,RequestCodes.FRM_CSYS);
-                FRAGMENT.getSupportDelegate().start(vehCsysFrm);
-//              FRAGMENT.getSupportDelegate().startForResult(vehCsysFrm,RequestCodes.FRM_CSYS);
+//                VehColorFrm vehCsysFrm = entity.getField(VehBasicItemFields.DELEGATE);
+//                vehCsysFrm.setTargetFragment(FRAGMENT,RequestCodes.FRM_CSYS);
+//                FRAGMENT.getSupportDelegate().start(vehCsysFrm);
+                getOptionPickView(view,R.id.tv_arrow_value,entity);
                 break;
             case 2://车辆识别代号
             case 8://核定人数
@@ -163,6 +171,32 @@ public class VehBasicInfoClickListener extends SimpleClickListener {
                         textView.setText(value);
                     }
                 }).setNegativeButton("取消",null).show();
+    }
+
+
+    private void getOptionPickView(final View itemView,final int ResId,final MultipleItemEntity entity){
+        String[] colors = ToolUtil.getArrayByResouce(mContext,R.array.csys);
+        List<String> list = Arrays.asList(colors);
+        final ArrayList<String> arrayList = new ArrayList<String>(list);
+        OptionsPickerView pvOptions = new OptionsPickerView.Builder(mContext, new OptionsPickerView.OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                String csys = ToolUtil.convertOneColor(arrayList.get(options1))
+                        +ToolUtil.convertOneColor(arrayList.get(options2))
+                        +ToolUtil.convertOneColor(arrayList.get(options3));
+                if(ToolUtil.isEmpty(csys)){
+                    return;
+                }
+                csys = csys.substring(0, csys.length()-1);
+                String csyscode = CsysConvert.convertMultiCsysToCode(mContext,csys);
+                entity.setField(VehBasicItemFields.ITEM_RIGHT_VALUE,csys);
+                entity.setField(VehBasicItemFields.ITEM_RIGHT_VALUE_CODE,csyscode);
+                final TextView textView = itemView.findViewById(ResId);
+                textView.setText(csys);
+            }
+        }).setSubmitText("确定").setCancelText("取消").build();
+        pvOptions.setNPicker(arrayList,arrayList,arrayList);
+        pvOptions.show();
     }
 
 

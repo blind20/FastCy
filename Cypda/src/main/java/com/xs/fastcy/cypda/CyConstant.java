@@ -2,11 +2,11 @@ package com.xs.fastcy.cypda;
 
 //1.切换常州,照片种类调出来array.xml
 //2.InUseCarFrm取消测试数据
-//3.CyBottomDelegate注释未上传菜单
+//3.TakePhotoClickListener常州loader(mContext)注释
 //4.图片质量
 public class CyConstant {
     //测试
-    public static final String SETTING_PDA_HOST = "192.168.10.52";
+    public static final String SETTING_PDA_HOST = "192.168.43.166";
     public static final String SETTING_PDA_BASEURL  = "http://"+ SETTING_PDA_HOST.trim() +":8088/cms/";
     public static final String SETTING_PDA_PROVINCE = "赣";
     public static final String SETTING_PDA_CITY  = "F";

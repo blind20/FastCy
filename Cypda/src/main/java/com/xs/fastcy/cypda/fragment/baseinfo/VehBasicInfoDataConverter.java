@@ -1,6 +1,7 @@
 package com.xs.fastcy.cypda.fragment.baseinfo;
 
 
+import android.content.Context;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
@@ -12,6 +13,7 @@ import com.flj.latte.util.log.LatteLogger;
 import com.xs.fastcy.cypda.CyConstant;
 import com.xs.fastcy.cypda.R;
 import com.xs.fastcy.cypda.fragment.VehItemType;
+import com.xs.fastcy.cypda.util.CsysConvert;
 import com.xs.fastcy.cypda.util.ToolUtil;
 
 import java.util.ArrayList;
@@ -33,6 +35,7 @@ public class VehBasicInfoDataConverter extends DataConverter {
         this.mHphmFull = hphm;
         return this;
     }
+
 
     @Override
     public ArrayList<MultipleItemEntity> convert() {
@@ -58,7 +61,10 @@ public class VehBasicInfoDataConverter extends DataConverter {
                 item_right_valuecode = CyConstant.PLEASE_SELECT_TYPE;
             }
             if(array_item_left_field[i].equals("csys")){
-                item_right_valuecode = convertCsysCode(item_right_valuecode);
+                LatteLogger.i("item_right_valuecode3","item_right_valuecode3="+item_right_valuecode);
+//                item_right_valuecode = convertCsysCode(item_right_valuecode);
+                item_right_valuecode = CsysConvert.convertMultiCsysToCode(getContext(),item_right_valuecode);
+                LatteLogger.i("item_right_valuecode","item_right_valuecode="+item_right_valuecode);
             }
             item_right_valuetext = getItemValueNameByItemValueCode(array_item_left_txt[i], item_right_valuecode);
             if(array_item_left_field[i].equals("hphm")&&!ToolUtil.isEmpty(mHphmFull)){
@@ -74,9 +80,9 @@ public class VehBasicInfoDataConverter extends DataConverter {
                     .setField(VehBasicItemFields.ITEM_RIGHT_VALUE, item_right_valuetext)
                     .setField(VehBasicItemFields.ITEM_RIGHT_VALUE_CODE, item_right_valuecode)
                     .build();
-            if (array_item_left_field[i].equals("csys")) {
-                entity.setField(VehBasicItemFields.DELEGATE, new VehCsysFrm());
-            }
+//            if (array_item_left_field[i].equals("csys")) {
+//                entity.setField(VehBasicItemFields.DELEGATE, new VehColorFrm());
+//            }
             ENTITIES.add(entity);
         }
         return ENTITIES;
